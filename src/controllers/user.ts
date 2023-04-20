@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { deleteUser, getUser, getUsers, insertUser, updateUser } from "../services/users";
+import { deleteUser, getUser, getUsers, insertUser, updateUser, addLog } from "../services/users";
 import { handleHttp } from "../utils/error.handle";
 
 const getPerson=async({params}:Request,res:Response)=>{
@@ -52,5 +52,14 @@ const deletePerson=async ({params}:Request,res:Response)=>{
         handleHttp(res,"ERROR_DELETE_USER");
     }
 };
+const addTheLog = async({body}:Request,res:Response)=>{
+    try{
+        const {idUser, idLog} = body;
+        const responseOrganization=await addLog(idUser, idLog);
+        res.send(responseOrganization);
+    }catch(e){
+        handleHttp(res,"ERROR_POST_LOG");
+    }
+};
 
-export { getPerson, getPeople, postPerson, updatePerson, deletePerson };
+export { getPerson, getPeople, postPerson, updatePerson, deletePerson, addTheLog };

@@ -29,6 +29,10 @@ const UserSchema = new Schema<User>(
             required:true,
 
         },
+        log:{
+            type: [Schema.Types.ObjectId],
+            ref:'logs',
+        },
     },
     {
         timestamps: true,

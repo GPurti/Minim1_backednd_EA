@@ -1,7 +1,7 @@
 /** Esta ruta nos va a devolver un array de objetos, que va a venir de una base de datos (carpeta config)*/
 
 import { Request, Response, Router } from "express";
-import { deletePerson, getPeople, getPerson, postPerson, updatePerson } from "../controllers/user";
+import { deletePerson, getPeople, getPerson, postPerson, updatePerson, addTheLog } from "../controllers/user";
 import { logMiddleware } from "../middleware/log";
 import { checkAdmin } from "../middleware/session";
 
@@ -15,6 +15,7 @@ router.get("/:idUser", getPerson);
 router.post("/",postPerson);
 router.put("/:idUser",updatePerson);
 router.delete("/:idUser",checkAdmin,deletePerson);
+router.post("/logs/:idUser", addTheLog);
 
 export { router };
 

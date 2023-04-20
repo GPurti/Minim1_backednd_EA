@@ -1,6 +1,7 @@
 //In charge to connect with the dB
 import { User } from "../interfaces/user.interface";
 import UserModel from "../models/user";
+import { Types } from "mongoose";
 
 const insertUser = async(item: User) => {
     const responseInsert = await UserModel.create(item);
@@ -30,6 +31,14 @@ const deleteUser = async(id: string) => {
     const responseItem = await UserModel.findOneAndRemove({_id: id});
     return responseItem;
 }
+const addLog = async(idUser: string, idLog: string) => {
+    const responseInsert = await UserModel.findOneAndUpdate(
+        {_id: idUser},
+        {$addToSet: {logs: new Types.ObjectId(idLog)}},
+        {new: true}
+    ); 
+    return responseInsert;
+};
 
 
-export { insertUser, getUser, getUsers, updateUser, deleteUser };
+export { insertUser, getUser, getUsers, updateUser, deleteUser, addLog };
